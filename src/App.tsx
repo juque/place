@@ -2,22 +2,26 @@ import { useState, useEffect } from 'react';
 function App() {
 
   const [fields, setFields] = useState('John\nJane\nMike');
-  const [template, setTemplate] = useState('Name: {}, name used {}');
+  const [template, setTemplate] = useState('Name: {}.upper, name used {}.lower');
   const [output, setOutput] = useState('');
 
   useEffect(() => {
 
     const generatedOutput = () => {
 
+      const filters = {
+          upper: (text) => text.toUpperCase(),
+          lower: (text) => text.toLowerCase(),
+      };
+
       const fieldsList = fields.split('\n').filter(field => field.trim());
 
       const result = fieldsList.map(field => {
         let temp = template;
-        const placeholders = template.match(/\{\}/g) || [];
-        placeholders.forEach(() => {
-          temp = temp.replace('{}', field);
-        });
-        return temp;
+        let parsed = temp.replace(/{}\.(\w+)/g, (_, filter) => {
+          return filters[filter] ? filters[filter](field) : field;
+        }).replace(/{}/g, field);
+        return parsed;
       }).join('\n');
 
       setOutput(result);
