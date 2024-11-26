@@ -53,6 +53,7 @@ function App() {
         </div>
 
       </div>
+      <footer className="text-center mt-10">{`{place}`} is a juque.cl project</footer>
     </div>
   )
 }
