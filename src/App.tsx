@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
+
+import TextSection from './components/TextSection'
+import htmlTpl from './tpls/html'
+
 function App() {
 
-  const [fields, setFields] = useState('John\nJane\nMike');
-  const [template, setTemplate] = useState('Name: {}.upper, name used {}.lower');
+  const [fields, setFields] = useState('Name\nEmail\nAge');
+  const [template, setTemplate] = useState(htmlTpl);
   const [output, setOutput] = useState('');
 
   useEffect(() => {
@@ -36,54 +40,17 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="container mx-auto max-w-6xl">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-black">Place</h1>
+          <h1 className="text-3xl font-black">{`{place}`}</h1>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-          
-            <h3>Fields</h3>
-
-            <textarea 
-              className="w-full h-[200px] p-3 border border-gray-300 rounded-md"
-              value={fields} 
-              onChange={(e) => setFields(e.target.value) }
-            />
-
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-
-            <h3>Template</h3>
-
-            <textarea 
-              className="w-full h-[200px] p-3 border border-gray-300 rounded-md"
-              value={template} 
-              onChange={(e) => setTemplate(e.target.value) }
-            />
-          
-          </div>
-        
+           <TextSection title="Fields" value={fields} onChange={setFields} />   
+           <TextSection title="Template" value={template} onChange={setTemplate}  />   
         </div>
 
-        <div className="mt-6 bg-white rounded-lg shadow-md p-6">
-
-          <h3>Result</h3>
-
-          <textarea 
-
-          readOnly
-
-          className="w-full h-[200px] p-3 bg-gray-50 border border-gray-300 rounded-md font-mono resize-none"
-
-          value={output}
-          
-          />
-
-        
+        <div className="mt-5">
+          <TextSection title="Result" value={output} readOnly />   
         </div>
-
 
       </div>
     </div>
