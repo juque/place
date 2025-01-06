@@ -16,6 +16,8 @@ function App() {
       const filters = {
           upper: (text) => text.toUpperCase(),
           lower: (text) => text.toLowerCase(),
+          snake: (text) => text.toLowerCase().replace(/ /,"_"),
+          kebab: (text) => text.toLowerCase().replace(/ /,"-")
       };
 
       const fieldsList = fields.split('\n').filter(field => field.trim());
@@ -41,6 +43,7 @@ function App() {
       <div className="container mx-auto max-w-6xl">
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-black">{`{place}`}</h1>
+          <p><code>upper, lower, snake, kebab</code></p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
